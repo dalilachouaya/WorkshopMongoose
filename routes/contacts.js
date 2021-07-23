@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Contact = require('../models/Contact')
-//ajouter => post // update => put or patch
 
+//ajouter => post // 
 router.post('/', async (req,res)=>{
     try {
             console.log(req.body)
@@ -26,7 +26,7 @@ router.get('/',async(req,res)=>{
     }
 
 })
- // delete contact
+ // delete contact 
     router.delete("/:id",async(req,res)=>{
         try {
             const result = await Contact.deleteOne({"_id" : req.params.id})
@@ -36,6 +36,21 @@ router.get('/',async(req,res)=>{
             res.status(400).send('Ouups ,contact not deleted')
         }
     })
+
+
+    // Update { id , content(body)}  update => put or patch 
+
+router.put("/:id",async(req,res)=>{
+    try {
+        const result = await Contact.updateOne({"_id" : req.params.id },{$set: {...req.body}})
+        result.nModified ?    
+        res.send({ msg:"contact updated"}) :  res.send({  msg:'Contact is already updated '})
+    } catch (error) {
+        res.status(400).send('Ouups ,contact not updated')
+        
+    }
+})
+
 
 router.get('/test',(req,res)=>{
     res.send('hello Router');
