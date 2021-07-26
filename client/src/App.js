@@ -1,6 +1,7 @@
 import "./App.css";
 import ContactList from "./components/ContactList";
 import Add from "./components/Add";
+import Edit from "./components/Edit";
 import { Button } from "semantic-ui-react";
 import { Switch, Route, Link } from "react-router-dom";
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ContactList} />
         <Route path="/add" component={Add} />
+        <Route path="/edit/:id" component={Edit}/>
       </Switch>
     </div>
   );

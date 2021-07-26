@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Contact = require('../models/Contact')
 
-//ajouter => post // 
+//add => post // 
 router.post('/', async (req,res)=>{
     try {
             console.log(req.body)
@@ -26,6 +26,19 @@ router.get('/',async(req,res)=>{
     }
 
 })
+
+
+  // Get By ID
+    router.get("/:id",async(req,res)=>{
+    try {
+        const result = await Contact.findOne({"_id" : req.params.id})
+    
+        res.send({  result , msg:"list of contact"}) 
+    } catch (error) {
+        res.status(400).send('Oops ,contact not found')
+    }
+})
+
  // delete contact 
     router.delete("/:id",async(req,res)=>{
         try {
@@ -46,7 +59,7 @@ router.put("/:id",async(req,res)=>{
         result.nModified ?    
         res.send({ msg:"contact updated"}) :  res.send({  msg:'Contact is already updated '})
     } catch (error) {
-        res.status(400).send('Ouups ,contact not updated')
+        res.status(400).send('Oops ,contact not updated')
         
     }
 })

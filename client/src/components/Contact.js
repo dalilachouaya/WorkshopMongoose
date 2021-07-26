@@ -1,7 +1,8 @@
 import React from "react"
 import {useDispatch} from "react-redux"
 import { Button, Card, Image } from "semantic-ui-react"
-import {deleteContact} from '../js/actions/contacts'
+import {deleteContact,getContactById} from '../js/actions/contacts'
+import {Link} from 'react-router-dom'
 const Contact = ({ el }) => {
     const dispatch = useDispatch()
     
@@ -19,9 +20,11 @@ const Contact = ({ el }) => {
         </Card.Content>
         <Card.Content extra>
           <div className="ui two buttons">
-            <Button basic color="green">
+          <Link to ={`/edit/${el._id}`}>
+            <Button basic color="green" onClick={()=> dispatch(getContactById(el._id))}>
               EDIT
             </Button>
+            </Link> 
             <Button basic color="red" onClick={()=> dispatch(deleteContact(el._id))}>
               REMOVE
             </Button>
